@@ -4,14 +4,14 @@ from selenium import webdriver
 
 @pytest.fixture(scope="session")
 def my_driver(request):
-    if request.config.getoption("--browser") == str.lower("chrome"):  # Not sure if the lower argument does anything
-        driver = webdriver.Chrome()
-    elif request.config.getoption("--browser") == str.lower("firefox"):
-        driver = webdriver.Firefox()
+    if request.config.getoption("--browser") == "chrome":
+        my_driver = webdriver.Chrome()
+    elif request.config.getoption("--browser") == "firefox":
+        my_driver = webdriver.Firefox()
     else:
         raise TypeError(f"Invalid value. Expected chrome or firefox but got {request.config.getoption('--browser')}")
-    yield driver
-    driver.close()
+    yield my_driver
+    my_driver.close()
 
 
 def pytest_addoption(parser):
