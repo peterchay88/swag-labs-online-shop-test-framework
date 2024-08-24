@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from page_objects.base_page import BasePage
 
 
-class LoginPage:
+class LoginPage(BasePage):
     __url = "https://www.saucedemo.com/"
     __login_button = (By.CLASS_NAME, "submit-button btn_action")
     __username_field = (By.ID, "user-name")
@@ -10,6 +11,7 @@ class LoginPage:
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
+        super().__init__(driver)
 
     def open_login_page(self):
         """
@@ -21,9 +23,17 @@ class LoginPage:
     def enter_username(self, username: str):
         """
         This method enters the username into the username field.
-        :param username:
+        :param username: Username to enter
         :return:
         """
-        self.driver.find_element()
+        super()._enter_text_into_element(element=self.__username_field, text=username)
+
+    def enter_password(self, password: str):
+        """
+        This method enters the password into the password field.
+        :param password: Password to enter
+        :return:
+        """
+        super()._enter_text_into_element(element=self.__password_field, text=password)
 
 
