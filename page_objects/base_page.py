@@ -22,5 +22,9 @@ class BasePage:
         """
         self._find_element(element).send_keys(text)
 
-    def click_button(self):
-        pass
+    def _click_button(self, element: tuple):
+        """
+        Method for clicking web elements
+        :return:
+        """
+        self._find_element(element).click()

@@ -36,4 +36,10 @@ class LoginPage(BasePage):
         """
         super()._enter_text_into_element(element=self.__password_field, text=password)
 
+    def click_login_button(self):
+        """
+        This method clicks the login button
+        :return:
+        """
+        super()._click_button(element=self.__login_button)
 
