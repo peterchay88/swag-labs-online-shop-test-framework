@@ -1,5 +1,6 @@
 import pytest
 from page_objects.login_page import LoginPage
+import logging
 
 pytestmark = [pytest.mark.login, pytest.mark.positive]
 
