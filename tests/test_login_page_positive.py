@@ -18,3 +18,4 @@ class TestLoginPagePositive:
         login_page.open_login_page()
         login_page.enter_username(username="standard_user")
         login_page.enter_password(password="secret_sauce")
+        login_page.click_login_button()  # TODO: Fix function
