@@ -6,7 +6,7 @@ import logging as logger
 
 class LoginPage(BasePage):
     __url = "https://www.saucedemo.com/"
-    __login_button = (By.CLASS_NAME, "submit-button btn_action")
+    __login_button = (By.CLASS_NAME, "submit-button")
     __username_field = (By.ID, "user-name")
     __password_field = (By.ID, "password")
 
