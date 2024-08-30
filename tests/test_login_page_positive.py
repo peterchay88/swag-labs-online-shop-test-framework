@@ -11,7 +11,7 @@ class TestLoginPagePositive:
         pytest.param("standard_user", "secret_sauce", "1", marks=pytest.mark.tcid01),
         pytest.param("visual_user", "secret_sauce", "2", marks=pytest.mark.tcid02)
     ])
-    def test_login(self, my_driver, username, password, test_id):
+    def test_login(self, username, password, test_id, my_driver):
         """
         This test confirms that we can log into the swag labs online shop
         1. Enter Username, 2. Enter Password, 3. Click login, 4. Validate successful login
