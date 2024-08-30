@@ -1,5 +1,5 @@
 import pytest
-import  logging as logger
+import logging as logger
 from page_objects.login_page import LoginPage
 
 pytestmark = [pytest.mark.login, pytest.mark.negative]
