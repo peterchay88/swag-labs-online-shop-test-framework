@@ -20,6 +20,6 @@ class TestLoginPagePositive:
         logger.info(f"Running test {test_id}")
         login_page = LoginPage(driver=my_driver)
         login_page.open_login_page()
-        login_page.enter_username(username=username)
-        login_page.enter_password(password=password)
+        login_page.enter_username(username=str(username))
+        login_page.enter_password(password=str(password))
         login_page.click_login_button()
