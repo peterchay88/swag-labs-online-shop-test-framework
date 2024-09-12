@@ -26,5 +26,5 @@ class TestLoginPagePositive:
         login_page.click_login_button()
         shop_page = ShopPage(driver=my_driver)
         # Confirm that we land on the shop page, Verify some elements on the page
-        assert shop_page.check_if_cart_button_is_displayed(), "Error. Cart button not found on page"
-
+        assert shop_page.is_cart_button_is_displayed(), "Error. Cart button not found on page"
+        assert shop_page.is_logout_button_present(), "Error. Logout button not found on page"
