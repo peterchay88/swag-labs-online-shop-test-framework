@@ -5,13 +5,32 @@ import logging as logger
 
 
 class ShopPage(BasePage):
+    __shop_page_url = "https://www.saucedemo.com/inventory.html"
     __cart_button = (By.ID, "shopping_cart_container")
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
+        self.url = self.__shop_page_url
         super().__init__(driver)
+
+    def get_current_url(self) -> str:
+        """
+        Returns current url
+        :return:
+        """
+        return self.driver.current_url
+
+    def check_current_url(self) -> bool:
+        """
+        Checks if current url matches shop page url
+        :return:
+        """
+        if self.driver.current_url == self.__shop_page_url:
+            return True
+        else:
+            return False
 
     def is_cart_button_is_displayed(self) -> bool:
         """
@@ -57,4 +76,9 @@ class ShopPage(BasePage):
         return super()._is_displayed(element=self.__logout_button)
 
     def click_logout_button(self):
-        pass
+        """
+        This method clicks the logout button on the shop page
+        :return:
+        """
+        self.is_logout_button_present()
+        super()._click_button(element=self.__logout_button)
