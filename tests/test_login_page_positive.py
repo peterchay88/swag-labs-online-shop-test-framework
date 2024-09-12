@@ -1,5 +1,6 @@
 import pytest
 from page_objects.login_page import LoginPage
+from page_objects.shop_page import ShopPage
 import logging as logger
 
 pytestmark = [pytest.mark.login, pytest.mark.positive]
@@ -23,3 +24,7 @@ class TestLoginPagePositive:
         login_page.enter_username(username=str(username))
         login_page.enter_password(password=str(password))
         login_page.click_login_button()
+        shop_page = ShopPage(driver=my_driver)
+        # Confirm that we land on the shop page, Verify some elements on the page
+        assert shop_page.check_if_cart_button_is_displayed(), "Error. Cart button not found on page"
+

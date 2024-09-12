@@ -11,6 +11,13 @@ class ShopPage(BasePage):
         self.driver = driver
         super().__init__(driver)
 
+    def check_if_cart_button_is_displayed(self) -> bool:
+        """
+        This method checks to see if the cart button is displayed on the shop page
+        :return:
+        """
+        return super()._is_displayed(element=self.__cart_button)
+
     def click_cart_button(self):
         """
         This method is for clicking the cart button on the shop page

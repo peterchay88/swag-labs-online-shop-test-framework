@@ -26,3 +26,4 @@ class TestLoginPageNegative:
         login_page.enter_password(password=str(password))
         login_page.click_login_button()
         # TODO: add assertion of error message
+        

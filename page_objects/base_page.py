@@ -42,7 +42,7 @@ class BasePage:
         """
         self._find_element(element).click()
 
-    def _is_displayed(self, element: tuple, time: int) -> bool:
+    def _is_displayed(self, element: tuple, time: int = 10) -> bool:
         """
         This method checks to see if the web element is displayed.
         :param element: Web Element
