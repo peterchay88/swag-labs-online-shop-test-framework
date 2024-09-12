@@ -5,14 +5,14 @@ import logging as logger
 
 
 class ShopPage(BasePage):
-    __shop_page_url = "https://www.saucedemo.com/inventory.html"
+    __url = "https://www.saucedemo.com/inventory.html"
     __cart_button = (By.ID, "shopping_cart_container")
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
-        self.url = self.__shop_page_url
+        self.url = self.__url
         super().__init__(driver)
 
     def get_current_url(self) -> str:
@@ -27,7 +27,7 @@ class ShopPage(BasePage):
         Checks if current url matches shop page url
         :return:
         """
-        if self.driver.current_url == self.__shop_page_url:
+        if self.get_current_url() == self.__url:
             return True
         else:
             return False
@@ -80,5 +80,5 @@ class ShopPage(BasePage):
         This method clicks the logout button on the shop page
         :return:
         """
-        self.is_logout_button_present()
+        # self.is_logout_button_present()
         super()._click_button(element=self.__logout_button)

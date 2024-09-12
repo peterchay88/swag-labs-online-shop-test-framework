@@ -12,7 +12,25 @@ class LoginPage(BasePage):
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
+        self.url = self.__url
         super().__init__(driver)
+
+    def get_current_url(self) -> str:
+        """
+        Returns the current URL of the page
+        :return:
+        """
+        return self.driver.current_url
+
+    def check_current_url(self) -> bool:
+        """
+        Checks the current url and validates it against the login page URL
+        :return:
+        """
+        if self.get_current_url() == self.__url:
+            return True
+        else:
+            return False
 
     def open_login_page(self):
         """
