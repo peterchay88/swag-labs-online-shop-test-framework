@@ -15,6 +15,8 @@ class ShopPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
+        self.backpack_add_to_cart = self.__backpack_add_to_cart_btn
+        self.bike_light_add_to_cart = self.__bike_light_add_to_cart_btn
         super().__init__(driver)
 
     def get_current_url(self) -> str:
@@ -41,6 +43,15 @@ class ShopPage(BasePage):
         """
         logger.info("Checking to see if cart button element is present on web page")
         return super()._is_displayed(element=self.__cart_button)
+
+    def check_chart_count(self) -> str:
+        """
+        Returns the count in the cart icon
+        :return:
+        """
+        if self.is_cart_button_is_displayed():
+            logger.info(super()._find_element(element=self.__cart_button).text)
+            return super()._find_element(element=self.__cart_button).text
 
     def click_cart_button(self):
         """
@@ -88,7 +99,7 @@ class ShopPage(BasePage):
     def click_add_to_cart_button(self, element: tuple):
         """
         This method clicks the add to cart button for the specified element
-        :param element:
+        :param element: Use self attribute to define which item to add to the cart
         :return:
         """
         logger.info(f"Clicking add to cart for web element located at {element}")

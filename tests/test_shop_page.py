@@ -17,5 +17,12 @@ class TestShopPage:
         """
         login_page = LoginPage(my_driver)
         login_page.execute_login(username="standard_user", password="secret_sauce")
-        pass
+        shop_page = ShopPage(my_driver)
+        shop_page.click_add_to_cart_button(shop_page.backpack_add_to_cart)
+        shop_page.click_add_to_cart_button(shop_page.bike_light_add_to_cart)
+        shop_page.check_chart_count()
+        # TODO: figure out how to compare the count on the cart icon to the number of items clicked.
+
+
+
 
