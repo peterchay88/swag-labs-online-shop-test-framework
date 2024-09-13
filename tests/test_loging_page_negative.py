@@ -25,5 +25,8 @@ class TestLoginPageNegative:
         login_page.enter_username(username=str(username))
         login_page.enter_password(password=str(password))
         login_page.click_login_button()
-        # TODO: add assertion of error message
+        # Confirm login error is correct
+        error_msg = "Epic sadface: Username and password do not match any user in this service"
+        assert login_page.check_login_error_message() == error_msg, \
+            f"Error, unexpected error message. Expected {error_msg}. Actual {login_page.check_login_error_message()}"
         
