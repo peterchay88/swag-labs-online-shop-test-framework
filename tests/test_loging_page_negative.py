@@ -16,7 +16,10 @@ class TestLoginPageNegative:
                      "4", marks=pytest.mark.tcid04),
         pytest.param("incorrect_user", "incorrect_password",
                      "Epic sadface: Username and password do not match any user in this service",
-                     "5", marks=pytest.mark.tcid05,)
+                     "5", marks=pytest.mark.tcid05,),
+        pytest.param("locked_out_user", "secret_sauce",
+                     "Epic sadface: Sorry, this user has been locked out.",
+                     "8", marks=pytest.mark.tcid08,)
     ])
     def test_bad_login(self, username, password, error_msg, test_id, my_driver):
         """
