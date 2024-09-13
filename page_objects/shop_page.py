@@ -9,6 +9,8 @@ class ShopPage(BasePage):
     __cart_button = (By.ID, "shopping_cart_container")
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
+    __backpack_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
+    __bike_light_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bike-light")
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
@@ -82,3 +84,12 @@ class ShopPage(BasePage):
         """
         # self.is_logout_button_present()
         super()._click_button(element=self.__logout_button)
+
+    def click_add_to_cart_button(self, element: tuple):
+        """
+        This method clicks the add to cart button for the specified element
+        :param element:
+        :return:
+        """
+        logger.info(f"Clicking add to cart for web element located at {element}")
+        super()._click_button(element)
