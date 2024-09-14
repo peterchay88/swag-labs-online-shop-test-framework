@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.base_page import BasePage
@@ -104,3 +106,20 @@ class ShopPage(BasePage):
         """
         logger.info(f"Clicking add to cart for web element located at {element}")
         super()._click_button(element)
+
+    def click_specified_add_to_cart_buttons(self, number: int):
+        """
+        this method clicks the add to cart button for the specified number of items passed in the argument
+        :param number: Number of items to add to the cart
+        :return:
+        """
+        logger.info(f"Clicking add to cart for {number} items")
+        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn]
+        count = 0
+        while count < number:
+            web_element = random.choice(list_of_buttons)
+            self.click_add_to_cart_button(web_element)  # Pick a random element from the list
+            list_of_buttons.pop(list_of_buttons.index(web_element))
+            count += 1
+        # TODO: Implement this in a test
+

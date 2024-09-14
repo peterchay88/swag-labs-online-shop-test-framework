@@ -3,6 +3,8 @@ from page_objects.shop_page import ShopPage
 from page_objects.login_page import LoginPage
 import logging as logger
 
+pytestmark = [pytest.mark.shop_page]
+
 
 class TestShopPage:
 
@@ -23,6 +25,14 @@ class TestShopPage:
         shop_page.check_chart_count()
         # TODO: figure out how to compare the count on the cart icon to the number of items clicked.
 
-
+    @pytest.mark.tcid10
+    def test_validate_add_cart_button(self, my_driver):
+        """
+        This test confirms that when clicking the add to cart button from the main shop page, the add to cart button
+        changes to a remove from cart button
+        :param my_driver:
+        :return:
+        """
+        pass
 
 
