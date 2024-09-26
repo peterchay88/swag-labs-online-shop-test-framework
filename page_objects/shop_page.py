@@ -52,14 +52,14 @@ class ShopPage(BasePage):
         logger.info("Checking to see if cart button element is present on web page")
         return super()._is_displayed(element=self.__cart_button)
 
-    def check_chart_count(self) -> str:
+    def check_chart_count(self) -> int:
         """
         Returns the count in the cart icon
         :return:
         """
         if self.is_cart_button_is_displayed():
             logger.info(super()._find_element(element=self.__cart_button).text)
-            return super()._find_element(element=self.__cart_button).text
+            return int(super()._find_element(element=self.__cart_button).text)
 
     def click_cart_button(self):
         """
