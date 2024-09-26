@@ -68,6 +68,16 @@ class LoginPage(BasePage):
         logger.info("Clicking login button")
         super()._click_button(element=self.__login_button)
 
+    def execute_login(self, username: str, password: str):
+        """
+        This method logs into the Swag labs online shop
+        :return:
+        """
+        self.open_login_page()
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_login_button()
+
     def check_login_error_exists(self) -> bool:
         """
         This method checks to see if the login error is thrown when invalid credentials are used
@@ -85,5 +95,7 @@ class LoginPage(BasePage):
             return super()._find_element(element=self.__login_error_msg).text
         else:
             raise NoSuchElementException
+
+
 
 

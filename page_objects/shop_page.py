@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.base_page import BasePage
@@ -9,10 +11,14 @@ class ShopPage(BasePage):
     __cart_button = (By.ID, "shopping_cart_container")
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
+    __backpack_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
+    __bike_light_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bike-light")
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
+        self.backpack_add_to_cart = self.__backpack_add_to_cart_btn
+        self.bike_light_add_to_cart = self.__bike_light_add_to_cart_btn
         super().__init__(driver)
 
     def get_current_url(self) -> str:
@@ -39,6 +45,15 @@ class ShopPage(BasePage):
         """
         logger.info("Checking to see if cart button element is present on web page")
         return super()._is_displayed(element=self.__cart_button)
+
+    def check_chart_count(self) -> str:
+        """
+        Returns the count in the cart icon
+        :return:
+        """
+        if self.is_cart_button_is_displayed():
+            logger.info(super()._find_element(element=self.__cart_button).text)
+            return super()._find_element(element=self.__cart_button).text
 
     def click_cart_button(self):
         """
@@ -82,3 +97,29 @@ class ShopPage(BasePage):
         """
         # self.is_logout_button_present()
         super()._click_button(element=self.__logout_button)
+
+    def click_add_to_cart_button(self, element: tuple):
+        """
+        This method clicks the add to cart button for the specified element
+        :param element: Use self attribute to define which item to add to the cart
+        :return:
+        """
+        logger.info(f"Clicking add to cart for web element located at {element}")
+        super()._click_button(element)
+
+    def click_specified_add_to_cart_buttons(self, number: int):
+        """
+        this method clicks the add to cart button for the specified number of items passed in the argument
+        :param number: Number of items to add to the cart
+        :return:
+        """
+        logger.info(f"Clicking add to cart for {number} items")
+        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn]
+        count = 0
+        while count < number:
+            web_element = random.choice(list_of_buttons)
+            self.click_add_to_cart_button(web_element)  # Pick a random element from the list
+            list_of_buttons.pop(list_of_buttons.index(web_element))
+            count += 1
+        # TODO: Implement this in a test
+
