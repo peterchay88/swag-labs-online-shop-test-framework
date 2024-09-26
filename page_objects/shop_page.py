@@ -11,8 +11,14 @@ class ShopPage(BasePage):
     __cart_button = (By.ID, "shopping_cart_container")
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
+
+    # Add to cart buttons for specified items
     __backpack_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
     __bike_light_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bike-light")
+    __black_shirt_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
+    __fleece_jacket_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-fleece-jacket")
+    __onesie_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-onesie")
+    __red_shirt_add_to_cart_btn = (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)")
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
@@ -114,12 +120,14 @@ class ShopPage(BasePage):
         :return:
         """
         logger.info(f"Clicking add to cart for {number} items")
-        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn]
+        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
+                           self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
+                           self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
         count = 0
         while count < number:
             web_element = random.choice(list_of_buttons)
             self.click_add_to_cart_button(web_element)  # Pick a random element from the list
+            # Remove web element from list, so it cannot be picked again
             list_of_buttons.pop(list_of_buttons.index(web_element))
             count += 1
-        # TODO: Implement this in a test
 
