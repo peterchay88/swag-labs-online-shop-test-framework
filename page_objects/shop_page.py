@@ -108,14 +108,23 @@ class ShopPage(BasePage):
         # self.is_logout_button_present()
         super()._click_button(element=self.__logout_button)
 
-    def click_add_to_cart_button(self, element: tuple):
+    def click_add_to_cart_button(self, element: dict):
         """
         This method clicks the add to cart button for the specified element
         :param element: Use self attribute to define which item to add to the cart
         :return:
         """
-        logger.info(f"Clicking add to cart for web element located at {element}")
-        super()._click_button(element)
+        logger.info(f"Clicking add to cart for web element located at {element['add']}")
+        super()._click_button(element['add'])
+
+    def is_remove_from_cart_btn_visible(self, element: dict):
+        """
+        This method checks to see if the remove from cart button is visible for a specified
+        web element.
+        :return:
+        """
+        logger.info(f"Checking to see if the remove from cart button is present for {element['remove']}")
+        return super()._is_displayed(element=element['remove'])
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """
@@ -124,9 +133,10 @@ class ShopPage(BasePage):
         :return:
         """
         logger.info(f"Clicking add to cart for {number} items")
-        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
-                           self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
-                           self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
+        # list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
+        #                    self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
+        #                    self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
+        list_of_buttons = [self.__backpack]
         count = 0
         while count < number:
             web_element = random.choice(list_of_buttons)
