@@ -117,14 +117,27 @@ class ShopPage(BasePage):
         logger.info(f"Clicking add to cart for web element located at {element['add']}")
         super()._click_button(element['add'])
 
-    def is_remove_from_cart_btn_visible(self, element: dict):
+    def is_remove_from_cart_btn_visible(self, element: dict) -> bool:
         """
         This method checks to see if the remove from cart button is visible for a specified
         web element.
+        :param element: Web element locator
         :return:
         """
-        logger.info(f"Checking to see if the remove from cart button is present for {element['remove']}")
-        return super()._is_displayed(element=element['remove'])
+        web_element = element['remove']
+        logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
+        return super()._is_displayed(element=web_element)
+
+    def click_remove_from_cart_button(self, element: dict):
+        """
+        This method clicks remove from cart for a specified web element.
+        :param element: Web element locator
+        :return:
+        """
+        web_element = element['remove']
+        if self.is_remove_from_cart_btn_visible(web_element):
+            logger.info(f"Clicking remove from cart button for {web_element}")
+            super()._click_button(element=web_element)
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """
