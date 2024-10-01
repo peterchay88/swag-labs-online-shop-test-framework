@@ -8,6 +8,7 @@ pytestmark = [pytest.mark.shop_page]
 
 class TestShopPage:
 
+    @pytest.mark.add_to_cart
     @pytest.mark.parametrize("number_of_items_to_add", [
         pytest.param(1, marks=pytest.mark.tcid09),
         pytest.param(2, marks=pytest.mark.tcid10),
@@ -16,6 +17,7 @@ class TestShopPage:
         pytest.param(5, marks=pytest.mark.tcid13),
         pytest.param(6, marks=pytest.mark.tcid14)
     ])
+    # TODO: Fix timeout error when all tests are run back to back
     def test_add_items_to_cart_from_main_page(self, number_of_items_to_add, my_driver):
         """
         This test confirms that we are able to add items to the cart from the main shop page
