@@ -126,7 +126,7 @@ class ShopPage(BasePage):
         """
         web_element = element['remove']
         logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
-        return super()._is_displayed(element=web_element)
+        return super()._is_displayed(element=web_element)  # TODO: Test this
 
     def click_remove_from_cart_button(self, element: dict):
         """
@@ -137,7 +137,7 @@ class ShopPage(BasePage):
         web_element = element['remove']
         if self.is_remove_from_cart_btn_visible(web_element):
             logger.info(f"Clicking remove from cart button for {web_element}")
-            super()._click_button(element=web_element)
+            super()._click_button(element=web_element)  # TODO: Test this
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """
@@ -149,7 +149,7 @@ class ShopPage(BasePage):
         # list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
         #                    self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
         #                    self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
-        list_of_buttons = [self.__backpack]
+        list_of_buttons = [self.__backpack]  # TODO: Regression test this function w/ new element changes
         count = 0
         while count < number:
             web_element = random.choice(list_of_buttons)
