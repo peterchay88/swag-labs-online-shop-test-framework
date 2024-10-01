@@ -20,6 +20,10 @@ class ShopPage(BasePage):
     __onesie_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-onesie")
     __red_shirt_add_to_cart_btn = (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)")
 
+    # Remove from cart buttons for specified items
+    __backpack = {"add": (By.ID, "add-to-cart-sauce-labs-backpack"),
+                  "remove": (By.ID, "remove-sauce-labs-backpack")}
+
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
