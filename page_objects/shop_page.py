@@ -1,5 +1,6 @@
 import random
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.base_page import BasePage
@@ -12,20 +13,40 @@ class ShopPage(BasePage):
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
 
-    # Add to cart buttons for specified items
-    __backpack_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
-    __bike_light_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bike-light")
-    __black_shirt_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
-    __fleece_jacket_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-fleece-jacket")
-    __onesie_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-onesie")
-    __red_shirt_add_to_cart_btn = (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)")
+    # Add and Remove from cart buttons for specified items
+    __backpack = {"add": (By.ID, "add-to-cart-sauce-labs-backpack"),
+                  "remove": (By.ID, "remove-sauce-labs-backpack")}
+    __bike_light = {"add": (By.ID, "add-to-cart-sauce-labs-bike-light"),
+                    "remove": (By.ID, "remove-sauce-labs-bike-light")}
+    __black_shirt = {"add": (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt"),
+                     "remove": (By.ID, "remove-sauce-labs-bolt-t-shirt")}
+    __fleece_jacket = {"add": (By.ID, "add-to-cart-sauce-labs-fleece-jacket"),
+                       "remove": (By.ID, "remove-sauce-labs-fleece-jacket")}
+    __onesie = {"add": (By.ID, "add-to-cart-sauce-labs-onesie"),
+                "remove": (By.ID, "remove-sauce-labs-onesie")}
+    __red_shirt = {"add": (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)"),
+                   "remove": (By.ID, "remove-test.allthethings()-t-shirt-(red)")}
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
-        self.backpack_add_to_cart = self.__backpack_add_to_cart_btn
-        self.bike_light_add_to_cart = self.__bike_light_add_to_cart_btn
         super().__init__(driver)
+
+    @staticmethod
+    def __add(value: dict) -> tuple:
+        """
+        This method is used to access the locator for the add to cart web elements
+        :return:
+        """
+        return value["add"]
+
+    @staticmethod
+    def __remove(value: dict) -> tuple:
+        """
+        This method is used to access the locator for the remove from cart web elements
+        :return:
+        """
+        return value["remove"]
 
     def get_current_url(self) -> str:
         """
@@ -101,17 +122,55 @@ class ShopPage(BasePage):
         This method clicks the logout button on the shop page
         :return:
         """
-        # self.is_logout_button_present()
-        super()._click_button(element=self.__logout_button)
+        if self.is_logout_button_present():
+            super()._click_button(element=self.__logout_button)
+        else:
+            raise NoSuchElementException
 
-    def click_add_to_cart_button(self, element: tuple):
+    def is_add_to_cart_btn_visible(self, element: dict) -> bool:
         """
-        This method clicks the add to cart button for the specified element
-        :param element: Use self attribute to define which item to add to the cart
+        This method checks to see if the add to cart button for the specified element
+        exists on the web page
+        :param element:
         :return:
         """
-        logger.info(f"Clicking add to cart for web element located at {element}")
-        super()._click_button(element)
+        web_element = self.__add(value=element)
+        logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
+        return super()._is_displayed(element=web_element)
+
+    def click_add_to_cart_button(self, element: dict):
+        """
+        This method clicks the add to cart button for the specified element
+        :param element:
+        :return:
+        """
+        web_element = self.__add(value=element)
+        logger.info(f"Clicking add to cart for web element located at {web_element}")
+        super()._click_button(web_element)
+
+    def is_remove_from_cart_btn_visible(self, element: dict) -> bool:
+        """
+        This method checks to see if the remove from cart button is visible for a specified
+        web element.
+        :param element: Web element locator
+        :return:
+        """
+        web_element = self.__remove(value=element)
+        logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
+        return super()._is_displayed(element=web_element)
+
+    def click_remove_from_cart_button(self, element: dict):
+        """
+        This method clicks remove from cart for a specified web element.
+        :param element: Web element locator
+        :return:
+        """
+        if self.is_remove_from_cart_btn_visible(element):
+            web_element = self.__remove(value=element)
+            logger.info(f"Clicking remove from cart button for {web_element}")
+            super()._click_button(element=web_element)
+        else:
+            raise NoSuchElementException
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """
@@ -120,9 +179,9 @@ class ShopPage(BasePage):
         :return:
         """
         logger.info(f"Clicking add to cart for {number} items")
-        list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
-                           self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
-                           self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
+        list_of_buttons = [self.__bike_light, self.__backpack,
+                           self.__black_shirt, self.__fleece_jacket,
+                           self.__onesie, self.__red_shirt]
         count = 0
         while count < number:
             web_element = random.choice(list_of_buttons)
@@ -130,4 +189,3 @@ class ShopPage(BasePage):
             # Remove web element from list, so it cannot be picked again
             list_of_buttons.pop(list_of_buttons.index(web_element))
             count += 1
-
