@@ -1,5 +1,6 @@
 import random
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.base_page import BasePage
@@ -27,8 +28,7 @@ class ShopPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
-        self.backpack_add_to_cart = self.__backpack_add_to_cart_btn
-        self.bike_light_add_to_cart = self.__bike_light_add_to_cart_btn
+        self.backpack = self.__backpack
         super().__init__(driver)
 
     def get_current_url(self) -> str:
@@ -105,8 +105,10 @@ class ShopPage(BasePage):
         This method clicks the logout button on the shop page
         :return:
         """
-        # self.is_logout_button_present()
-        super()._click_button(element=self.__logout_button)
+        if self.is_logout_button_present():
+            super()._click_button(element=self.__logout_button)
+        else:
+            raise NoSuchElementException
 
     def click_add_to_cart_button(self, element: dict):
         """
@@ -114,8 +116,9 @@ class ShopPage(BasePage):
         :param element: Use self attribute to define which item to add to the cart
         :return:
         """
-        logger.info(f"Clicking add to cart for web element located at {element['add']}")
-        super()._click_button(element['add'])
+        web_element = element['add']
+        logger.info(f"Clicking add to cart for web element located at {web_element}")
+        super()._click_button(web_element)
 
     def is_remove_from_cart_btn_visible(self, element: dict) -> bool:
         """
@@ -126,7 +129,7 @@ class ShopPage(BasePage):
         """
         web_element = element['remove']
         logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
-        return super()._is_displayed(element=web_element)  # TODO: Test this
+        return super()._is_displayed(element=web_element)
 
     def click_remove_from_cart_button(self, element: dict):
         """
@@ -138,6 +141,9 @@ class ShopPage(BasePage):
         if self.is_remove_from_cart_btn_visible(web_element):
             logger.info(f"Clicking remove from cart button for {web_element}")
             super()._click_button(element=web_element)  # TODO: Test this
+        else:
+            pass
+
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """
@@ -157,4 +163,3 @@ class ShopPage(BasePage):
             # Remove web element from list, so it cannot be picked again
             list_of_buttons.pop(list_of_buttons.index(web_element))
             count += 1
-
