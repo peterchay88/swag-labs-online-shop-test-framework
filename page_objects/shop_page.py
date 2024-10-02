@@ -13,17 +13,19 @@ class ShopPage(BasePage):
     __nav_bar = (By.ID, "react-burger-menu-btn")
     __logout_button = (By.ID, "logout_sidebar_link")
 
-    # Add to cart buttons for specified items
-    __backpack_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
-    __bike_light_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bike-light")
-    __black_shirt_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
-    __fleece_jacket_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-fleece-jacket")
-    __onesie_add_to_cart_btn = (By.ID, "add-to-cart-sauce-labs-onesie")
-    __red_shirt_add_to_cart_btn = (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)")
-
-    # Remove from cart buttons for specified items
+    # Add and Remove from cart buttons for specified items
     __backpack = {"add": (By.ID, "add-to-cart-sauce-labs-backpack"),
                   "remove": (By.ID, "remove-sauce-labs-backpack")}
+    __bike_light = {"add": (By.ID, "add-to-cart-sauce-labs-bike-light"),
+                    "remove": (By.ID, "remove-sauce-labs-bike-light")}
+    __black_shirt = {"add": (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt"),
+                     "remove": (By.ID, "remove-sauce-labs-bolt-t-shirt")}
+    __fleece_jacket = {"add": (By.ID, "add-to-cart-sauce-labs-fleece-jacket"),
+                       "remove": (By.ID, "remove-sauce-labs-fleece-jacket")}
+    __onesie = {"add": (By.ID, "add-to-cart-sauce-labs-onesie"),
+                "remove": (By.ID, "remove-sauce-labs-onesie")}
+    __red_shirt = {"add": (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)"),
+                   "remove": (By.ID, "remove-test.allthethings()-t-shirt-(red)")}
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
@@ -167,7 +169,7 @@ class ShopPage(BasePage):
         if self.is_remove_from_cart_btn_visible(element):
             web_element = self.__remove(value=element)
             logger.info(f"Clicking remove from cart button for {web_element}")
-            super()._click_button(element=web_element)  # TODO: Test this
+            super()._click_button(element=web_element)
         else:
             raise NoSuchElementException
 
