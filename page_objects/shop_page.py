@@ -28,6 +28,8 @@ class ShopPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
+        self.add = "add"
+        self.remove = "remove"
         self.backpack = self.__backpack
         super().__init__(driver)
 
@@ -110,13 +112,24 @@ class ShopPage(BasePage):
         else:
             raise NoSuchElementException
 
+    def is_add_to_cart_btn_visible(self, element: dict) -> bool:
+        """
+        This method checks to see if the add to cart button for the specified element
+        exists on the web page
+        :param element:
+        :return:
+        """
+        web_element = element[self.add]
+        logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
+        return super()._is_displayed(element=web_element)
+
     def click_add_to_cart_button(self, element: dict):
         """
         This method clicks the add to cart button for the specified element
-        :param element: Use self attribute to define which item to add to the cart
+        :param element:
         :return:
         """
-        web_element = element['add']
+        web_element = element[self.add]
         logger.info(f"Clicking add to cart for web element located at {web_element}")
         super()._click_button(web_element)
 
@@ -127,7 +140,7 @@ class ShopPage(BasePage):
         :param element: Web element locator
         :return:
         """
-        web_element = element['remove']
+        web_element = element[self.remove]
         logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
         return super()._is_displayed(element=web_element)
 
@@ -137,13 +150,12 @@ class ShopPage(BasePage):
         :param element: Web element locator
         :return:
         """
-        web_element = element['remove']
+        web_element = element[self.remove]
         if self.is_remove_from_cart_btn_visible(web_element):
             logger.info(f"Clicking remove from cart button for {web_element}")
             super()._click_button(element=web_element)  # TODO: Test this
         else:
-            pass
-
+            raise NoSuchElementException
 
     def click_specified_add_to_cart_buttons(self, number: int):
         """

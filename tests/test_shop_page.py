@@ -42,6 +42,8 @@ class TestShopPage:
         changes to a remove from cart button.
         1. User can click add to cart for the items
         2. add to cart button turns into a remove button
+        3. Click remove from cart button
+        4. Remove from cart turns into an add to cart button
         :param my_driver:
         :return:
         """
@@ -57,6 +59,10 @@ class TestShopPage:
         # TODO: Fix double log message generated from method when referencing assertion
 
         # Remove from cart
-
-
-
+        shop_page.click_remove_from_cart_button(shop_page.backpack)
+        assert shop_page.is_add_to_cart_btn_visible(shop_page.backpack), \
+            (f"Error Unexpected value. Expected True."
+             f"Actual: {shop_page.is_add_to_cart_btn_visible(shop_page.backpack)}")
+        # TODO: Currently have an issue with conflicting logic with "Is X visible" functions and "Click X button".
+        #  Stand alone logic works but when called together they do not work. Need to figure a better way to handle.
+        #  perhaps a method in the actual class to convert the values
