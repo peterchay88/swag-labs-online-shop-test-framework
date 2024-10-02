@@ -30,7 +30,6 @@ class ShopPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
-        self.backpack = self.__backpack
         super().__init__(driver)
 
     @staticmethod
@@ -180,10 +179,9 @@ class ShopPage(BasePage):
         :return:
         """
         logger.info(f"Clicking add to cart for {number} items")
-        # list_of_buttons = [self.__bike_light_add_to_cart_btn, self.__backpack_add_to_cart_btn,
-        #                    self.__black_shirt_add_to_cart_btn, self.__fleece_jacket_add_to_cart_btn,
-        #                    self.__onesie_add_to_cart_btn, self.__red_shirt_add_to_cart_btn]
-        list_of_buttons = [self.__backpack]  # TODO: Regression test this function w/ new element changes
+        list_of_buttons = [self.__bike_light, self.__backpack,
+                           self.__black_shirt, self.__fleece_jacket,
+                           self.__onesie, self.__red_shirt]
         count = 0
         while count < number:
             web_element = random.choice(list_of_buttons)
