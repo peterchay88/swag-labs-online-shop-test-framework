@@ -63,6 +63,3 @@ class TestShopPage:
         assert shop_page.is_add_to_cart_btn_visible(shop_page.backpack), \
             (f"Error Unexpected value. Expected True."
              f"Actual: {shop_page.is_add_to_cart_btn_visible(shop_page.backpack)}")
-        # TODO: Currently have an issue with conflicting logic with "Is X visible" functions and "Click X button".
-        #  Stand alone logic works but when called together they do not work. Need to figure a better way to handle.
-        #  perhaps a method in the actual class to convert the values

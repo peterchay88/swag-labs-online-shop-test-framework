@@ -28,10 +28,24 @@ class ShopPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = self.__url
-        self.add = "add"
-        self.remove = "remove"
         self.backpack = self.__backpack
         super().__init__(driver)
+
+    @staticmethod
+    def __add(value: dict) -> tuple:
+        """
+        This method is used to access the locator for the add to cart web elements
+        :return:
+        """
+        return value["add"]
+
+    @staticmethod
+    def __remove(value: dict) -> tuple:
+        """
+        This method is used to access the locator for the remove from cart web elements
+        :return:
+        """
+        return value["remove"]
 
     def get_current_url(self) -> str:
         """
@@ -119,7 +133,7 @@ class ShopPage(BasePage):
         :param element:
         :return:
         """
-        web_element = element[self.add]
+        web_element = self.__add(value=element)
         logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
         return super()._is_displayed(element=web_element)
 
@@ -129,7 +143,7 @@ class ShopPage(BasePage):
         :param element:
         :return:
         """
-        web_element = element[self.add]
+        web_element = self.__add(value=element)
         logger.info(f"Clicking add to cart for web element located at {web_element}")
         super()._click_button(web_element)
 
@@ -140,7 +154,7 @@ class ShopPage(BasePage):
         :param element: Web element locator
         :return:
         """
-        web_element = element[self.remove]
+        web_element = self.__remove(value=element)
         logger.info(f"Checking to see if the remove from cart button is present for {web_element}")
         return super()._is_displayed(element=web_element)
 
@@ -150,8 +164,8 @@ class ShopPage(BasePage):
         :param element: Web element locator
         :return:
         """
-        web_element = element[self.remove]
-        if self.is_remove_from_cart_btn_visible(web_element):
+        if self.is_remove_from_cart_btn_visible(element):
+            web_element = self.__remove(value=element)
             logger.info(f"Clicking remove from cart button for {web_element}")
             super()._click_button(element=web_element)  # TODO: Test this
         else:
